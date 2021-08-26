@@ -24,6 +24,12 @@ inputs:
 
 outputs:
   image-tag:
+    description: Published Docker Image with Tag
+    value: ${{ steps.meta.outputs.image-tag }}
+  image:
+    description: Published Docker Image
+    value: ${{ steps.meta.outputs.image }}
+  tag:
     description: Published Docker Tag
     value: ${{ steps.meta.outputs.tag }}
 
