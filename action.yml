@@ -6,7 +6,7 @@ branding:
   icon: layers
 
 inputs:
-  repsitory:
+  repository:
     description: ECR Repository to use for Images
     required: true
   registry_password:
@@ -28,31 +28,27 @@ runs:
     - id: meta
       uses: itsmycargo/docker-meta-action@v1.0.0
       with:
-        image: ${{ inputs.image }}
+        image: ${{ inputs.repository }}
 
     - uses: actions/checkout@v2
     - uses: docker/setup-qemu-action@v1
     - uses: docker/setup-buildx-action@v1
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
+    - uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ inputs.aws-access-key-id }}
         aws-secret-access-key: ${{ inputs.aws-secret-access-key }}
         aws-region: ${{ inputs.aws-region }}
 
-    - name: Login to Amazon ECR
-      uses: aws-actions/amazon-ecr-login@v1
+    - uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Cache Docker layers
-      uses: actions/cache@v2.1.4
+    - uses: actions/cache@v2.1.4
       with:
         path: /tmp/.buildx-cache
         key: ${{ runner.os }}-buildx-${{ github.sha }}
         restore-keys: ${{ runner.os }}-buildx-
 
-    - name: Build and push
-      uses: docker/build-push-action@v2
+    - uses: docker/build-push-action@v2
       with:
         push: true
         cache-from: type=local,src=/tmp/.buildx-cache
