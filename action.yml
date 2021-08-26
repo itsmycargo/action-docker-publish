@@ -22,11 +22,16 @@ inputs:
     description: AWS Region for ECR Repository
     required: true
 
+outputs:
+  image-tag:
+    description: Published Docker Tag
+    value: ${{ steps.meta.outputs.tag }}
+
 runs:
   using: "composite"
   steps:
     - id: meta
-      uses: itsmycargo/docker-meta-action@v1.0.0
+      uses: itsmycargo/docker-meta-action@main
       with:
         image: ${{ inputs.repository }}
 
