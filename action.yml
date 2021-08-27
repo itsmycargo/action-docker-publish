@@ -28,7 +28,7 @@ outputs:
     value: ${{ steps.meta.outputs.repositoryTag }}
   repository:
     description: Published Docker Image
-    value: ${{ inputs.repository }}
+    value: ${{ steps.meta.outputs.repository }}
   tag:
     description: Published Docker Tag
     value: ${{ steps.meta.outputs.tag }}
