@@ -23,12 +23,12 @@ inputs:
     required: true
 
 outputs:
-  image-tag:
+  repositoryTag:
     description: Published Docker Image with Tag
-    value: ${{ steps.meta.outputs.image-tag }}
-  image:
+    value: ${{ steps.meta.outputs.repositoryTag }}
+  repository:
     description: Published Docker Image
-    value: ${{ steps.meta.outputs.image }}
+    value: ${{ steps.meta.outputs.repository }}
   tag:
     description: Published Docker Tag
     value: ${{ steps.meta.outputs.tag }}
@@ -39,7 +39,7 @@ runs:
     - id: meta
       uses: itsmycargo/docker-meta-action@main
       with:
-        image: ${{ inputs.repository }}
+        repository: ${{ inputs.repository }}
 
     - uses: actions/checkout@v2
     - uses: docker/setup-qemu-action@v1
@@ -67,4 +67,4 @@ runs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         build-args: |
-          RELEASE=${{ steps.meta.outputs.sha }}
+          RELEASE=${{ github.sha }}
