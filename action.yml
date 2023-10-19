@@ -1,5 +1,5 @@
 name: Publish Docker to ECR
-description: Build and publioshed docker image to ECR
+description: Builds and publishes docker image to AWS ECR
 author: itsmycargo
 branding:
   color: blue
