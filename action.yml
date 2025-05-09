@@ -9,6 +9,10 @@ inputs:
   repository:
     description: ECR Repository to use for Images
     required: true
+  release-managed:
+    description: Whether Github releases are used for tagging
+    default: "false"
+    required: false
   registry_password:
     description: 'Password for image registry'
     required: true
@@ -48,6 +52,7 @@ runs:
       uses: itsmycargo/docker-meta-action@main
       with:
         repository: ${{ inputs.repository }}
+        release-managed: ${{ inputs.release-managed }}
 
     - uses: actions/checkout@v2
     - uses: docker/setup-qemu-action@v1
